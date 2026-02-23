@@ -1,0 +1,44 @@
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\events\EndTurnClicked.java:63:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\events\EndTurnClicked.java:76:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\events\EndTurnClicked.java:274:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\events\EndTurnClicked.java:325:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\events\EndTurnClicked.java:349:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\events\EndTurnClicked.java:381:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\events\EndTurnClicked.java:606:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\events\EndTurnClicked.java:628:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\structures\AttackLogic.java:21:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\structures\AttackLogic.java:31:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
+[0m[[0m[31merror[0m] [0m[0mD:\Doneload\ITSD-DT2025-26-Template\app\structures\AttackLogic.java:57:1: 找不到符号[0m
+[0m[[0m[31merror[0m] [0m[0m  符号:   方法 addPlayer2Notification(akka.actor.ActorRef,java.lang.String,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  位置: 类 commands.BasicCommands[0m
+[0m[[0m[31merror[0m] [0m[0mBasicCommands.addPlayer2Notification[0m
