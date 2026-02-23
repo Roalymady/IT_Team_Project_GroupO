@@ -12,3 +12,4 @@ logs/
 # Ignore temporary files.
 *.tmp
 *.log
+null/
