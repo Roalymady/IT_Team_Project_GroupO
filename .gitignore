@@ -1,0 +1,14 @@
+# Ignore the files generated during compilation.
+target/
+bin/
+*.class
+
+# Ignore log.
+.vscode/
+.metals/
+logs/
+.DS_Store
+
+# Ignore temporary files.
+*.tmp
+*.log
