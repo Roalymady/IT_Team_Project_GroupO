@@ -24,3 +24,7 @@ logs/
 # --- 5. Temporary Files ---
 *.tmp
 *.log
+
+# --- 6. Documentation (Prevent re-uploading) ---
+Y25-26-Decks.pdf
+方法说明.docx
