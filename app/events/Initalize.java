@@ -11,6 +11,7 @@ import structures.basic.Tile;
 import structures.basic.Unit;
 import structures.basic.Card;
 import utils.BasicObjectBuilders;
+import utils.OrderedCardLoader;
 import utils.StaticConfFiles;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,13 +96,13 @@ public class Initalize implements EventProcessor {
             gameState.humanPlayer = new GamePlayer();
             gameState.humanPlayer.setMana(3);
             gameState.humanPlayer.setMaxMana(3);
-            gameState.humanPlayer.setDeck(loadHumanDeck());
+            gameState.humanPlayer.setDeck(OrderedCardLoader.getPlayer1Cards(20));
 
             // AI Player Setup
             gameState.aiPlayer = new GamePlayer();
             gameState.aiPlayer.setMana(3);
             gameState.aiPlayer.setMaxMana(3);
-            gameState.aiPlayer.setDeck(loadAIDeck());
+            gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(20));
 
             // --------------------------------------------------------
             // 3. Initialize Visual Player Objects (Avatars on UI)
@@ -176,41 +177,41 @@ public class Initalize implements EventProcessor {
     // Helper Methods
     // =================================================================================
 
-    /**
-     * Loads the Human Player's deck with 20 cards (2 copies of 10 types).
-     */
-    private List<Card> loadHumanDeck() {
-        List<Card> deck = new ArrayList<>();
-        int cardId = 100;
+    // /**
+    //  * Loads the Human Player's deck with 20 cards (2 copies of 10 types).
+    //  */
+    // private List<Card> loadHumanDeck() {
+    //     List<Card> deck = new ArrayList<>();
+    //     int cardId = 100;
         
-        // Loop 2 times to add 2 copies of each card
-        for (int k = 0; k < 2; k++) {
-            for (int i = 0; i < 10; i++) { // Indices 0-9 are Human cards
-                Card c = BasicObjectBuilders.loadCard(ALL_CARD_FILES[i], cardId++, Card.class);
-                deck.add(c);
-            }
-        }
-        Collections.shuffle(deck); // Randomize
-        return deck;
-    }
+    //     // Loop 2 times to add 2 copies of each card
+    //     for (int k = 0; k < 2; k++) {
+    //         for (int i = 0; i < 10; i++) { // Indices 0-9 are Human cards
+    //             Card c = BasicObjectBuilders.loadCard(ALL_CARD_FILES[i], cardId++, Card.class);
+    //             deck.add(c);
+    //         }
+    //     }
+    //     Collections.shuffle(deck); // Randomize
+    //     return deck;
+    // }
 
-    /**
-     * Loads the AI Player's deck with 20 cards (2 copies of 10 types).
-     */
-    private List<Card> loadAIDeck() {
-        List<Card> deck = new ArrayList<>();
-        int cardId = 200;
+    // /**
+    //  * Loads the AI Player's deck with 20 cards (2 copies of 10 types).
+    //  */
+    // private List<Card> loadAIDeck() {
+    //     List<Card> deck = new ArrayList<>();
+    //     int cardId = 200;
         
-        // Loop 2 times to add 2 copies of each card
-        for (int k = 0; k < 2; k++) {
-            for (int i = 10; i < 20; i++) { // Indices 10-19 are AI cards
-                Card c = BasicObjectBuilders.loadCard(ALL_CARD_FILES[i], cardId++, Card.class);
-                deck.add(c);
-            }
-        }
-        Collections.shuffle(deck); // Randomize
-        return deck;
-    }
+    //     // Loop 2 times to add 2 copies of each card
+    //     for (int k = 0; k < 2; k++) {
+    //         for (int i = 10; i < 20; i++) { // Indices 10-19 are AI cards
+    //             Card c = BasicObjectBuilders.loadCard(ALL_CARD_FILES[i], cardId++, Card.class);
+    //             deck.add(c);
+    //         }
+    //     }
+    //     Collections.shuffle(deck); // Randomize
+    //     return deck;
+    // }
 
     /**
      * Helper to draw a specific number of cards for the Human player visually.
