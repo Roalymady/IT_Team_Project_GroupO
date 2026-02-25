@@ -1,15 +1,26 @@
-# Ignore the files generated during compilation.
+# --- 1. Compilation and Build ---
 target/
 bin/
+sbt-dist/
 *.class
 
-# Ignore log.
+# --- 2. Project Core Components (Ignored as requested) ---
+project/
+public/
+scripts/
+sbt
+sbt.bat
+
+# --- 3. Assets and Cache ---
+app/assets/
+null/
+logs/
+
+# --- 4. IDE and System Files ---
 .vscode/
 .metals/
-logs/
 .DS_Store
 
-# Ignore temporary files.
+# --- 5. Temporary Files ---
 *.tmp
 *.log
-null/
