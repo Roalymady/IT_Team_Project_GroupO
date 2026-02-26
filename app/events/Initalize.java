@@ -96,13 +96,13 @@ public class Initalize implements EventProcessor {
             gameState.humanPlayer = new GamePlayer();
             gameState.humanPlayer.setMana(3);
             gameState.humanPlayer.setMaxMana(3);
-            gameState.humanPlayer.setDeck(OrderedCardLoader.getPlayer1Cards(20));
+            gameState.humanPlayer.setDeck(OrderedCardLoader.getPlayer1Cards(3));
 
             // AI Player Setup
             gameState.aiPlayer = new GamePlayer();
             gameState.aiPlayer.setMana(3);
             gameState.aiPlayer.setMaxMana(3);
-            gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(20));
+            gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(2));
 
             // --------------------------------------------------------
             // 3. Initialize Visual Player Objects (Avatars on UI)
@@ -127,12 +127,18 @@ public class Initalize implements EventProcessor {
             // Draw 3 cards for Human (Visual + Logical)
             drawStartingHand(out, gameState.humanPlayer, 3);
             
+
             // Draw 3 cards for AI (Logical only, not shown on UI)
-            for (int i = 0; i < 3; i++) {
-                if (!gameState.aiPlayer.getDeck().isEmpty()) {
-                    gameState.aiPlayer.getHand().add(gameState.aiPlayer.getDeck().remove(0));
-                }
-            }
+            drawStartingHand(null, gameState.aiPlayer, 3);
+
+            
+
+            // Draw 3 cards for AI (Logical only, not shown on UI)
+            // for (int i = 0; i < 3; i++) {
+            //     if (!gameState.aiPlayer.getDeck().isEmpty()) {
+            //         gameState.aiPlayer.getHand().add(gameState.aiPlayer.getDeck().remove(0));
+            //     }
+            // }
 
             // --------------------------------------------------------
             // 5. Summon Hero Units (Avatars) on the board
@@ -214,15 +220,22 @@ public class Initalize implements EventProcessor {
     // }
 
     /**
-     * Helper to draw a specific number of cards for the Human player visually.
+     * Helper to draw a specific number of cards for the Human and Ai player
+     * If statements controls if it shows up on UI or not
      */
+
+
+
     private void drawStartingHand(ActorRef out, GamePlayer player, int count) {
         for (int i = 0; i < count; i++) {
             if (!player.getDeck().isEmpty()) {
                 Card card = player.getDeck().remove(0);
                 player.getHand().add(card);
+
+                if (out == out) {
                 BasicCommands.drawCard(out, card, player.getHand().size(), 0);
                 try { Thread.sleep(200); } catch (InterruptedException e) {}
+                }
             }
         }
     }
