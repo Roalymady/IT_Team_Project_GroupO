@@ -11,6 +11,7 @@ import structures.basic.Tile;
 import structures.basic.Unit;
 import structures.basic.Card;
 import utils.BasicObjectBuilders;
+import utils.OrderedCardLoader;
 import utils.StaticConfFiles;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,13 +96,13 @@ public class Initalize implements EventProcessor {
             gameState.humanPlayer = new GamePlayer();
             gameState.humanPlayer.setMana(3);
             gameState.humanPlayer.setMaxMana(3);
-            gameState.humanPlayer.setDeck(loadHumanDeck());
+            gameState.humanPlayer.setDeck(OrderedCardLoader.getPlayer1Cards(2));
 
             // AI Player Setup
             gameState.aiPlayer = new GamePlayer();
             gameState.aiPlayer.setMana(3);
             gameState.aiPlayer.setMaxMana(3);
-            gameState.aiPlayer.setDeck(loadAIDeck());
+            gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(2));
 
             // --------------------------------------------------------
             // 3. Initialize Visual Player Objects (Avatars on UI)
@@ -123,15 +124,24 @@ public class Initalize implements EventProcessor {
             // 4. Deal Starting Hands
             // --------------------------------------------------------
             
+           
+
             // Draw 3 cards for Human (Visual + Logical)
-            drawStartingHand(out, gameState.humanPlayer, 3);
+            dealHand(gameState.humanPlayer, 3);
+            drawStartingHand(out, gameState.humanPlayer);
+            
+
+            // Draw 3 cards for AI (Logical only, not shown on UI)
+            dealHand(gameState.aiPlayer, 3);
+        
+
             
             // Draw 3 cards for AI (Logical only, not shown on UI)
-            for (int i = 0; i < 3; i++) {
-                if (!gameState.aiPlayer.getDeck().isEmpty()) {
-                    gameState.aiPlayer.getHand().add(gameState.aiPlayer.getDeck().remove(0));
-                }
-            }
+            // for (int i = 0; i < 3; i++) {
+            //     if (!gameState.aiPlayer.getDeck().isEmpty()) {
+            //         gameState.aiPlayer.getHand().add(gameState.aiPlayer.getDeck().remove(0));
+            //     }
+            // }
 
             // --------------------------------------------------------
             // 5. Summon Hero Units (Avatars) on the board
@@ -176,52 +186,31 @@ public class Initalize implements EventProcessor {
     // Helper Methods
     // =================================================================================
 
-    /**
-     * Loads the Human Player's deck with 20 cards (2 copies of 10 types).
-     */
-    private List<Card> loadHumanDeck() {
-        List<Card> deck = new ArrayList<>();
-        int cardId = 100;
-        
-        // Loop 2 times to add 2 copies of each card
-        for (int k = 0; k < 2; k++) {
-            for (int i = 0; i < 10; i++) { // Indices 0-9 are Human cards
-                Card c = BasicObjectBuilders.loadCard(ALL_CARD_FILES[i], cardId++, Card.class);
-                deck.add(c);
-            }
-        }
-        Collections.shuffle(deck); // Randomize
-        return deck;
-    }
 
     /**
-     * Loads the AI Player's deck with 20 cards (2 copies of 10 types).
+     * Helper to draw a specific number of cards for the Human and Ai player
+     * If statements controls if it shows up on UI or not
      */
-    private List<Card> loadAIDeck() {
-        List<Card> deck = new ArrayList<>();
-        int cardId = 200;
+
+
+
+    private void drawStartingHand(ActorRef out, GamePlayer player) {
         
-        // Loop 2 times to add 2 copies of each card
-        for (int k = 0; k < 2; k++) {
-            for (int i = 10; i < 20; i++) { // Indices 10-19 are AI cards
-                Card c = BasicObjectBuilders.loadCard(ALL_CARD_FILES[i], cardId++, Card.class);
-                deck.add(c);
-            }
+        for (int i = 0; i< player.getHand().size(); i++){
+
+            BasicCommands.drawCard(out, player.getHand().get(i), i+1, 0);
+            try { Thread.sleep(200); } catch (InterruptedException e) {}
         }
-        Collections.shuffle(deck); // Randomize
-        return deck;
+
+
     }
 
-    /**
-     * Helper to draw a specific number of cards for the Human player visually.
-     */
-    private void drawStartingHand(ActorRef out, GamePlayer player, int count) {
+    private void dealHand(GamePlayer player, int count) {
         for (int i = 0; i < count; i++) {
             if (!player.getDeck().isEmpty()) {
                 Card card = player.getDeck().remove(0);
                 player.getHand().add(card);
-                BasicCommands.drawCard(out, card, player.getHand().size(), 0);
-                try { Thread.sleep(200); } catch (InterruptedException e) {}
+
             }
         }
     }
