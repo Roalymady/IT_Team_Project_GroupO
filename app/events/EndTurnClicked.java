@@ -63,6 +63,11 @@ public class EndTurnClicked implements EventProcessor {
         // 3. Clear logical selection state (Clear selectedUnit and selectedCard in memory)
         gameState.selectionState.clear();
 
+        // 3b. Visually and logically clear Human player's mana at end of turn
+        gameState.humanPlayer.setMana(0);
+        gameState.humanPlayer.getBasicPlayer().setMana(0);
+        BasicCommands.setPlayer1Mana(out, gameState.humanPlayer.getBasicPlayer());
+
         // 4. Remove Stunned status from Human units
         // (If a unit was stunned, the penalty is considered paid at the end of the turn)
         for (int x = 0; x < gameState.board.getXMax(); x++) {
@@ -91,6 +96,10 @@ public class EndTurnClicked implements EventProcessor {
 
         // Run the main AI logic
         executeAITurn(out, gameState);
+
+        gameState.aiPlayer.setMana(0);
+        gameState.aiPlayer.getBasicPlayer().setMana(0);
+        BasicCommands.setPlayer2Mana(out, gameState.aiPlayer.getBasicPlayer());
 
         // --------------------------------------------------------
         // Step 3: Start Human Turn
