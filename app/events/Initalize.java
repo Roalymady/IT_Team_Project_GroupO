@@ -102,7 +102,7 @@ public class Initalize implements EventProcessor {
             gameState.aiPlayer = new GamePlayer();
             gameState.aiPlayer.setMana(3);
             gameState.aiPlayer.setMaxMana(3);
-            gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(1));
+            gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(2));
 
             // --------------------------------------------------------
             // 3. Initialize Visual Player Objects (Avatars on UI)
