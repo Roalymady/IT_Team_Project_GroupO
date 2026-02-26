@@ -127,11 +127,13 @@ public class Initalize implements EventProcessor {
            
 
             // Draw 3 cards for Human (Visual + Logical)
-            drawStartingHand(out, gameState.humanPlayer, 3);
+            dealHand(gameState.humanPlayer, 3);
+            drawStartingHand(out, gameState.humanPlayer);
             
 
             // Draw 3 cards for AI (Logical only, not shown on UI)
-            drawStartingHand(null, gameState.aiPlayer, 3);
+            dealHand(gameState.aiPlayer, 3);
+        
 
             
             // Draw 3 cards for AI (Logical only, not shown on UI)
@@ -184,41 +186,6 @@ public class Initalize implements EventProcessor {
     // Helper Methods
     // =================================================================================
 
-    // /**
-    //  * Loads the Human Player's deck with 20 cards (2 copies of 10 types).
-    //  */
-    // private List<Card> loadHumanDeck() {
-    //     List<Card> deck = new ArrayList<>();
-    //     int cardId = 100;
-        
-    //     // Loop 2 times to add 2 copies of each card
-    //     for (int k = 0; k < 2; k++) {
-    //         for (int i = 0; i < 10; i++) { // Indices 0-9 are Human cards
-    //             Card c = BasicObjectBuilders.loadCard(ALL_CARD_FILES[i], cardId++, Card.class);
-    //             deck.add(c);
-    //         }
-    //     }
-    //     Collections.shuffle(deck); // Randomize
-    //     return deck;
-    // }
-
-    // /**
-    //  * Loads the AI Player's deck with 20 cards (2 copies of 10 types).
-    //  */
-    // private List<Card> loadAIDeck() {
-    //     List<Card> deck = new ArrayList<>();
-    //     int cardId = 200;
-        
-    //     // Loop 2 times to add 2 copies of each card
-    //     for (int k = 0; k < 2; k++) {
-    //         for (int i = 10; i < 20; i++) { // Indices 10-19 are AI cards
-    //             Card c = BasicObjectBuilders.loadCard(ALL_CARD_FILES[i], cardId++, Card.class);
-    //             deck.add(c);
-    //         }
-    //     }
-    //     Collections.shuffle(deck); // Randomize
-    //     return deck;
-    // }
 
     /**
      * Helper to draw a specific number of cards for the Human and Ai player
@@ -227,16 +194,23 @@ public class Initalize implements EventProcessor {
 
 
 
-    private void drawStartingHand(ActorRef out, GamePlayer player, int count) {
+    private void drawStartingHand(ActorRef out, GamePlayer player) {
+        
+        for (int i = 0; i< player.getHand().size(); i++){
+
+            BasicCommands.drawCard(out, player.getHand().get(i), i+1, 0);
+            try { Thread.sleep(200); } catch (InterruptedException e) {}
+        }
+
+
+    }
+
+    private void dealHand(GamePlayer player, int count) {
         for (int i = 0; i < count; i++) {
             if (!player.getDeck().isEmpty()) {
                 Card card = player.getDeck().remove(0);
                 player.getHand().add(card);
 
-                if (out == out) {
-                BasicCommands.drawCard(out, card, player.getHand().size(), 0);
-                try { Thread.sleep(200); } catch (InterruptedException e) {}
-                }
             }
         }
     }
