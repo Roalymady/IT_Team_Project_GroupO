@@ -96,13 +96,13 @@ public class Initalize implements EventProcessor {
             gameState.humanPlayer = new GamePlayer();
             gameState.humanPlayer.setMana(3);
             gameState.humanPlayer.setMaxMana(3);
-            gameState.humanPlayer.setDeck(OrderedCardLoader.getPlayer1Cards(3));
+            gameState.humanPlayer.setDeck(OrderedCardLoader.getPlayer1Cards(2));
 
             // AI Player Setup
             gameState.aiPlayer = new GamePlayer();
             gameState.aiPlayer.setMana(3);
             gameState.aiPlayer.setMaxMana(3);
-            gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(2));
+            gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(1));
 
             // --------------------------------------------------------
             // 3. Initialize Visual Player Objects (Avatars on UI)
@@ -124,6 +124,8 @@ public class Initalize implements EventProcessor {
             // 4. Deal Starting Hands
             // --------------------------------------------------------
             
+           
+
             // Draw 3 cards for Human (Visual + Logical)
             drawStartingHand(out, gameState.humanPlayer, 3);
             
@@ -132,7 +134,6 @@ public class Initalize implements EventProcessor {
             drawStartingHand(null, gameState.aiPlayer, 3);
 
             
-
             // Draw 3 cards for AI (Logical only, not shown on UI)
             // for (int i = 0; i < 3; i++) {
             //     if (!gameState.aiPlayer.getDeck().isEmpty()) {

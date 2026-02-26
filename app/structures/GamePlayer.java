@@ -84,4 +84,6 @@ public class GamePlayer {
     public void setHand(List<Card> hand) {
         this.hand = hand; // Assign hand list
     }
+
+
 }

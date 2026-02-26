@@ -32,8 +32,11 @@ public class OrderedCardLoader {
 					cardsInDeck.add(BasicObjectBuilders.loadCard(cardsDIR+filename, cardID, Card.class));
 				}
 			}
+	
 		}
 		
+		
+
 		
 		return cardsInDeck;
 	}

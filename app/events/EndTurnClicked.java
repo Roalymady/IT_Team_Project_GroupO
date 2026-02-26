@@ -115,11 +115,7 @@ public class EndTurnClicked implements EventProcessor {
             try { Thread.sleep(300); } catch (InterruptedException e) {}
         }
 
-        System.out.println("Player 1 has " + gameState.humanPlayer.getHand().size() + " cards in hand.");
-        System.out.println("Player 1 has " + gameState.humanPlayer.getDeck().size() + " cards in deck.");
-
-        System.out.println("Player 2 has " + gameState.aiPlayer.getHand().size() + " cards in hand.");
-        System.out.println("Player 2 has " + gameState.aiPlayer.getDeck().size() + " cards in deck.");
+       
 
         // Reset movement/attack status for all units
         resetAllUnits(out, gameState);
