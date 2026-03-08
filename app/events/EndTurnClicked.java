@@ -7,6 +7,7 @@ import structures.GameState;
 import structures.GameUnit;
 import structures.MovementRule;
 import structures.AttackLogic;
+import structures.GamePlayer;
 import structures.basic.Card;
 import structures.basic.Tile;
 import structures.basic.Unit;
@@ -63,10 +64,11 @@ public class EndTurnClicked implements EventProcessor {
         // 3. Clear logical selection state (Clear selectedUnit and selectedCard in memory)
         gameState.selectionState.clear();
 
-        // 3b. Visually and logically clear Human player's mana at end of turn
-        gameState.humanPlayer.setMana(0);
-        gameState.humanPlayer.getBasicPlayer().setMana(0);
-        BasicCommands.setPlayer1Mana(out, gameState.humanPlayer.getBasicPlayer());
+        // 3b. Human ends current turn -> unused Mana is lost
+        clearPlayerMana(out, gameState.humanPlayer, true);
+
+        // Prepare Human's NEXT turn number
+        gameState.humanTurnNumber++;
 
         // 4. Remove Stunned status from Human units
         // (If a unit was stunned, the penalty is considered paid at the end of the turn)
@@ -84,37 +86,25 @@ public class EndTurnClicked implements EventProcessor {
         // --------------------------------------------------------
         BasicCommands.addPlayer1Notification(out, "Enemy Turn", 2);
         
-        // Update AI Mana (Cap at 9)
-        int currentAIMax = gameState.aiPlayer.getMaxMana();
-        if (currentAIMax < 9) gameState.aiPlayer.setMaxMana(currentAIMax + 1);
-        if (gameState.aiPlayer.getMaxMana() > 9) gameState.aiPlayer.setMaxMana(9);
-        gameState.aiPlayer.setMana(gameState.aiPlayer.getMaxMana());
-        
-        // Sync AI Mana with frontend (Player 2)
-        gameState.aiPlayer.getBasicPlayer().setMana(gameState.aiPlayer.getMana());
-        BasicCommands.setPlayer2Mana(out, gameState.aiPlayer.getBasicPlayer());
+        // Start AI turn using AI's OWN turn number
+        applyTurnMana(out, gameState, gameState.aiPlayer, false, gameState.aiTurnNumber);
 
         // Run the main AI logic
         executeAITurn(out, gameState);
 
-        gameState.aiPlayer.setMana(0);
-        gameState.aiPlayer.getBasicPlayer().setMana(0);
-        BasicCommands.setPlayer2Mana(out, gameState.aiPlayer.getBasicPlayer());
+        // AI ends current turn -> unused Mana is lost
+        clearPlayerMana(out, gameState.aiPlayer, false);
+
+        // Prepare AI's NEXT turn number
+        gameState.aiTurnNumber++;
 
         // --------------------------------------------------------
         // Step 3: Start Human Turn
         // --------------------------------------------------------
         BasicCommands.addPlayer1Notification(out, "Your Turn!", 2);
 
-        // Update Human Mana (Cap at 9)
-        int currentHumanMax = gameState.humanPlayer.getMaxMana();
-        if (currentHumanMax < 9) gameState.humanPlayer.setMaxMana(currentHumanMax + 1);
-        if (gameState.humanPlayer.getMaxMana() > 9) gameState.humanPlayer.setMaxMana(9);
-        gameState.humanPlayer.setMana(gameState.humanPlayer.getMaxMana());
-        
-        // Sync Human Mana with frontend (Player 1)
-        gameState.humanPlayer.getBasicPlayer().setMana(gameState.humanPlayer.getMana());
-        BasicCommands.setPlayer1Mana(out, gameState.humanPlayer.getBasicPlayer());
+        // Start Human turn using Human's OWN turn number
+        applyTurnMana(out, gameState, gameState.humanPlayer, true, gameState.humanTurnNumber);
 
         // Draw card for Human player
         for (int i = 0; i < 1; i++) {
@@ -780,5 +770,36 @@ public class EndTurnClicked implements EventProcessor {
 
     private boolean isAvatar(GameUnit unit) {
         return unit.getBasicUnit().getId() == 1 || unit.getBasicUnit().getId() == 2;
+    }
+    
+    private void setPlayerManaAndUI(ActorRef out, GamePlayer player, boolean isHumanPlayer, int mana) {
+    player.setMaxMana(mana);
+    player.setMana(mana);
+
+    if (player.getBasicPlayer() != null) {
+        player.getBasicPlayer().setMana(mana);
+        if (isHumanPlayer) {
+            BasicCommands.setPlayer1Mana(out, player.getBasicPlayer());
+        } else {
+            BasicCommands.setPlayer2Mana(out, player.getBasicPlayer());
+            }
+        }
+    }
+
+    private void applyTurnMana(ActorRef out, GameState gameState, GamePlayer player, boolean isHumanPlayer, int turnNumber) {
+        int mana = gameState.manaForTurn(turnNumber);
+        setPlayerManaAndUI(out, player, isHumanPlayer, mana);
+    }
+
+    private void clearPlayerMana(ActorRef out, GamePlayer player, boolean isHumanPlayer) {
+        player.setMana(0);
+        if (player.getBasicPlayer() != null) {
+            player.getBasicPlayer().setMana(0);
+            if (isHumanPlayer) {
+                BasicCommands.setPlayer1Mana(out, player.getBasicPlayer());
+            } else {
+                BasicCommands.setPlayer2Mana(out, player.getBasicPlayer());
+            }
+        }
     }
 }

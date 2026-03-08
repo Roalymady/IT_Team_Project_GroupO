@@ -92,16 +92,18 @@ public class Initalize implements EventProcessor {
             // 2. Initialize Logical Players
             // --------------------------------------------------------
             
+            gameState.humanTurnNumber = 1;
+            gameState.aiTurnNumber = 1;
+            
             // Human Player Setup
             gameState.humanPlayer = new GamePlayer();
-            gameState.humanPlayer.setMana(3);
-            gameState.humanPlayer.setMaxMana(3);
+            gameState.humanPlayer.setMana(gameState.manaForTurn(gameState.humanTurnNumber));
+            gameState.humanPlayer.setMaxMana(gameState.manaForTurn(gameState.humanTurnNumber));
             gameState.humanPlayer.setDeck(OrderedCardLoader.getPlayer1Cards(2));
 
-            // AI Player Setup
             gameState.aiPlayer = new GamePlayer();
-            gameState.aiPlayer.setMana(3);
-            gameState.aiPlayer.setMaxMana(3);
+            gameState.aiPlayer.setMana(gameState.manaForTurn(gameState.aiTurnNumber)); 
+            gameState.aiPlayer.setMaxMana(gameState.manaForTurn(gameState.aiTurnNumber)); 
             gameState.aiPlayer.setDeck(OrderedCardLoader.getPlayer2Cards(2));
 
             // --------------------------------------------------------
@@ -109,13 +111,12 @@ public class Initalize implements EventProcessor {
             // --------------------------------------------------------
             
             // Set Player 1 (Human) Stats UI
-            Player humanAvatarObj = new Player(20, 3);
+            Player humanAvatarObj = new Player(20, gameState.manaForTurn(gameState.humanTurnNumber));
             gameState.humanPlayer.setBasicPlayer(humanAvatarObj);
             BasicCommands.setPlayer1Health(out, gameState.humanPlayer.getBasicPlayer());
             BasicCommands.setPlayer1Mana(out, gameState.humanPlayer.getBasicPlayer());
 
-            // Set Player 2 (AI) Stats UI
-            Player aiAvatarObj = new Player(20, 3);
+            Player aiAvatarObj = new Player(20, gameState.manaForTurn(gameState.aiTurnNumber)); 
             gameState.aiPlayer.setBasicPlayer(aiAvatarObj);
             BasicCommands.setPlayer2Health(out, gameState.aiPlayer.getBasicPlayer());
             BasicCommands.setPlayer2Mana(out, gameState.aiPlayer.getBasicPlayer());

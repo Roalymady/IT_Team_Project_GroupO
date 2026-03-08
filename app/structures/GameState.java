@@ -1,9 +1,6 @@
 package structures;
 
 import structures.basic.Card;
-import structures.basic.Player;
-import structures.basic.Tile;
-import structures.basic.Unit;
 
 /**
  * GameState
@@ -34,6 +31,14 @@ public class GameState {
 
     // Current selection status of cards or units
     public SelectionState selectionState = new SelectionState();
+
+    // Human starts on turn 1, AI is also prepared for turn 1.
+    public int humanTurnNumber = 1;
+    public int aiTurnNumber = 1;
+
+    public int manaForTurn(int turnNumber) {
+        return Math.min(turnNumber + 1, 9);
+    }
 
     
     //Inner class to manage the selection state of units and cards.
